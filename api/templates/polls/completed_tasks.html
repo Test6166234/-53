@@ -1,0 +1,23 @@
+{% extends 'polls/base.html' %}
+{% load static %}
+
+{% block title %}Выполненные задачи{% endblock %}
+
+{% block content %}
+<h1>Выполненные задачи</h1>
+
+<div class="task-list">
+    {% if tasks_done %}
+        {% for task in tasks_done %}
+        <div class="task-card">
+            <h3>{{ task.title }}</h3>
+            <p>{{ task.description|default:"Нет описания" }}</p>
+            <p>Выполнено</p>
+            <a class="btn-link" href="{% url 'tasks_list' %}">Назад к списку</a>
+        </div>
+        {% endfor %}
+    {% else %}
+        <p>Нет выполненных задач.</p>
+    {% endif %}
+</div>
+{% endblock %}

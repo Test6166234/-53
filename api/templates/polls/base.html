@@ -1,0 +1,90 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Мое приложение задач{% endblock %}</title>
+
+    <style>
+        /* Глобальные стили и фон как на скриншоте */
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #1a1a1a; /* Темный фон */
+            color: white;
+            line-height: 1.6;
+            position: relative; /* Нужно для позиционирования канваса */
+            min-height: 100vh;
+        }
+        /* Стили для канваса (заднего фона) */
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -1; /* Отправляем на задний план */
+        }
+        .container {
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative; /* Контент должен быть поверх канваса */
+        }
+        /* ... (Стили навигации, заголовков, карточек и кнопок без изменений) ... */
+        nav { background-color: #333; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 8px rgba(0,0,0,0.3); }
+        nav a { color: #FFD700; text-decoration: none; margin-left: 15px; font-weight: bold; transition: color 0.3s; }
+        nav a:hover { color: white; }
+        h1, h2, h3 { color: #FFD700; text-shadow: 0 0 8px rgba(255, 215, 0, 0.5); }
+        .task-card { background: linear-gradient(135deg, #333, #555); padding: 20px; border-radius: 12px; box-shadow: 0 6px 20px rgba(0,0,0,0.35); margin-bottom: 20px; }
+        .btn-link { display: inline-block; margin-top: 10px; padding: 10px 16px; background: linear-gradient(90deg, #ff4e50, #f9d423); color: black; border-radius: 10px; text-decoration: none; font-weight: bold; transition: transform 0.3s, box-shadow 0.3s; cursor: pointer; border: none; }
+        .btn-link:hover { transform: translateY(-3px); box-shadow: 0 6px 15px rgba(0,0,0,0.5); }
+        footer { text-align: center; margin-top: 40px; opacity: 0.7; position: relative; }
+    </style>
+</head>
+<body>
+    <!-- Элемент для заднего фона -->
+    <canvas id="bgCanvas"></canvas>
+
+    <nav>
+        <div><a href="{% url 'tasks_list' %}">Главная (Задачи)</a></div>
+        <div><a href="{% url 'completed_tasks' %}">Выполненные</a><a href="{% url 'about' %}">О нас</a><a href="{% url 'settings' %}">Настройки</a></div>
+    </nav>
+
+    <div class="container">
+        {% block content %}{% endblock %}
+    </div>
+
+    <footer>&copy; 2025 Мое приложение</footer>
+
+    <!-- СКРИПТ ДЛЯ АНИМИРОВАННОГО ЗАДНЕГО ФОНА -->
+    <script>
+        function initializeNeonBackground() {
+            const canvas = document.getElementById('bgCanvas');
+            const ctx = canvas.getContext('2d');
+            let width = canvas.width = window.innerWidth;
+            let height = canvas.height = window.innerHeight;
+            const particles = [];
+            function createParticle() { return { x: Math.random() * width, y: Math.random() * height, r: Math.random() * 2 + 1, dx: (Math.random() - 0.5) * 0.5, dy: (Math.random() - 0.5) * 0.5 }; }
+            for (let i = 0; i < 150; i++) particles.push(createParticle());
+            function animate() {
+                ctx.clearRect(0,0,width,height);
+                particles.forEach(p => {
+                    ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+                    ctx.fillStyle = 'rgba(255,255,255,0.3)'; ctx.fill();
+                    p.x += p.dx; p.y += p.dy;
+                    if(p.x < 0 || p.x > width) p.dx *= -1;
+                    if(p.y < 0 || p.y > height) p.dy *= -1;
+                }); requestAnimationFrame(animate);
+            }
+            window.addEventListener('resize', () => { width = canvas.width = window.innerWidth; height = canvas.height = window.innerHeight; });
+            animate();
+        }
+
+        // Запускаем фон при загрузке страницы
+        document.addEventListener('DOMContentLoaded', (event) => {
+            initializeNeonBackground();
+        });
+    </script>
+</body>
+</html>

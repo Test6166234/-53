@@ -1,0 +1,174 @@
+/* --- Глобальные настройки и сброс --- */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    color: #FFD700;
+    background: #0a0a0a;
+    display: flex; flex-direction: column; min-height: 100vh;
+}
+.neon-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
+header, footer, .page-content {
+    position: relative; z-index: 10; box-sizing: border-box;
+    max-width: 1200px; width: 100%; margin-left: auto; margin-right: auto;
+    padding-left: 15px; padding-right: 15px;
+}
+.page-content { flex-grow: 1; }
+
+/* --- Навигация --- */
+.navigation { text-align: center; margin: 20px 0; }
+.navigation a, .navigation span.active {
+    text-decoration: none; color: #FFD700; margin: 0 15px;
+    font-weight: bold; padding: 8px 15px; border-radius: 8px;
+    transition: 0.3s, box-shadow 0.3s; position: relative; overflow: hidden;
+}
+.navigation a:hover, .navigation span.active {
+    background: rgba(255,255,255,0.1); color: #fff;
+    box-shadow: 0 0 10px #FFD700, 0 0 20px #FFD700;
+}
+/* --- Вспомогательные стили текста --- */
+.gradient-text {
+    background: linear-gradient(90deg, #ffd700, #ff4e50);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: bold;
+}
+.text-shadow { text-shadow: 2px 2px 8px rgba(0,0,0,0.8); }
+
+/* --- Универсальная доска задач (Kanban Board) --- */
+.kanban-board { display: flex; justify-content: center; gap: 20px; align-items: flex-start; flex-wrap: wrap; margin-top: 20px; width: 100%; }
+.task-column {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex: 1 1 250px;
+    align-items: stretch;
+    background-color: rgba(0,0,0,0.8);
+    padding: 15px;
+    border-radius: 6px;
+    min-height: 200px;
+    border-left: 3px solid #FFD700; /* Золотистая рамка слева */
+    border-right: 3px solid #FF4E50; /* Красная рамка справа */
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.5), 0 0 10px rgba(255, 78, 80, 0.5); /* Эффект свечения */
+}
+.task-column:hover {
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.9), 0 0 15px rgba(255, 78, 80, 0.9);
+}
+.task-column h2 { text-align: center; color: #FFD700; text-shadow: 1px 1px 4px rgba(0,0,0,0.8); margin-bottom: 10px; }
+
+/* Удаляем градиентные линии сверху/снизу */
+.task-column::before,
+.task-column::after {
+    content: none;
+}
+@keyframes gradientGlow { /* анимация для кнопок, не для колонок */
+    0% { background-position: 0% 0; }
+    100% { background-position: 100% 0; }
+}
+
+
+/* --- Стили для отдельных задач (карточек) внутри колонок --- */
+.task-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.task-item-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.05);
+    color: #fff;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid rgba(255, 215, 0, 0.3);
+    transition: background 0.3s, box-shadow 0.3s;
+}
+
+.task-item-container:hover {
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 0 8px rgba(255, 215, 0, 0.5);
+}
+
+.btn-detail {
+    background: #FFD700; /* Золотистый фон */
+    color: #000; /* Черный текст */
+    padding: 4px 8px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.btn-detail:hover {
+    background: #ff4e50; /* Цвет при наведении */
+    color: #fff;
+}
+
+
+/* --- Стили для карточек с переливающимися рамками (detail/create/etc) --- */
+.task-card {
+    background: rgba(0,0,0,0.8); border: none; border-radius: 6px;
+    padding: 20px 10px; text-align: center; width: 100%;
+    min-height: 350px; transition: transform 0.2s, box-shadow 0.2s;
+    position: relative; overflow: hidden;
+    display: flex; flex-direction: column;
+    justify-content: space-between;
+}
+/* Рамки сверху/снизу для других карточек */
+.task-card::before, .task-card::after { content: ''; position: absolute; left: 0; width: 100%; height: 3px; background: linear-gradient(90deg, transparent, #ffd700, #ff4e50, #ffd700, transparent); background-size: 200% 100%; animation: gradientGlow 3s linear infinite; box-shadow: 0 0 10px rgba(255, 215, 0, 0.5); }
+.task-card::before { top: 0; }
+.task-card::after { bottom: 0; }
+.task-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.5), 0 0 30px rgba(255, 78, 80, 0.3);
+}
+
+/* ... (остальные стили кнопок, форм, адаптива) ... */
+.task-card ul { list-style: none; padding: 0; margin: 5px 0; font-size: 12px; color: #fff; text-align: left; }
+.task-card ul li { margin-bottom: 3px; }
+
+/* Кнопки */
+.btn-link {
+    display: inline-block; padding: 6px 10px; background: linear-gradient(90deg, #ff4e50, #f9d423);
+    background-size: 200% 200%; animation: gradientMove 5s ease infinite alternate;
+    color: #000; border-radius: 4px; text-decoration: none; font-weight: bold;
+    transition: transform 0.2s; border: none; cursor: pointer;
+}
+.btn-link:hover { transform: translateY(-2px); }
+@keyframes gradientMove { 0% { background-position: 0% 50%; } 100% { background-position: 100% 50%; } }
+
+
+/* --- Адаптив --- */
+@media (max-width: 1000px) {
+    .kanban-board { flex-direction: column; align-items: center; }
+    .task-column { width: 80%; }
+    .task-card { width: 100%; min-height: auto; }
+}
+
+/* ... (остальные стили about, settings, forms) ... */
+.task-card.completed {
+    justify-content: space-between; padding: 20px; border-radius: 12px; transition: transform 0.3s, box-shadow 0.3s;
+    color: #fff; box-shadow: 0 6px 20px rgba(0,0,0,0.35); text-align: center; backdrop-filter: blur(3px);
+    background: none !important; border: none !important; min-height: auto !important;
+    flex-grow: 1;
+}
+.task-card.completed:hover { transform: translateY(-6px) scale(1.03); box-shadow: 0 10px 30px rgba(0,0,0,0.6); }
+.task-card.completed p { line-height: 1.4; color: #fff; }
+.task-card.completed .status-completed { margin: 10px 0; font-weight: bold; color: #58ff8a; }
+.task-card.completed .btn-link { background: linear-gradient(90deg, #ff4e50, #f9d423); color: #000; }
+.task-card.settings-card { background: linear-gradient(135deg, #ff512f, #dd2476) !important; margin: 0 auto; }
+
+.task-card.task-detail { max-width: 600px; margin: 0 auto; justify-content: flex-start; }
+.task-card.task-detail p { font-size: 18px; line-height: 1.4; color: #FFD700; }
+.task-status { margin-top: 10px; font-weight: bold; }
+.status-done { color: #58ff8a; }
+.status-in-progress { color: #ff6b6b; }
+.back-link-container { text-align: center; margin-top: 20px; }
+
+.form-fields { margin-bottom: 20px; text-align: left; }
+.form-fields p { margin-bottom: 10px; }
+.form-fields label { display: block; font-weight: bold; margin-bottom: 5px; color: #FFD700; }
+.form-input { width: 100%; padding: 10px; background: rgba(255, 255, 255, 0.1); border: 1px solid #FFD700; border-radius: 4px; color: #fff; box-sizing: border-box; }
+.form-input:focus { outline: none; border-color: #ff4e50; box-shadow: 0 0 5px rgba(255, 78, 80, 0.5); }

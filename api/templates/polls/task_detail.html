@@ -1,0 +1,30 @@
+{% extends "polls/base.html" %}
+
+{% block title %}Детали задачи{% endblock %}
+
+{% block content %}
+
+<h1>Детали задачи</h1>
+
+<div class="task-card task-detail">
+    <h3>{{ task.title }}</h3>
+    <!-- Убедитесь, что здесь ваша логика шагов (TaskStep) -->
+    <p>{{ task.description }}</p>
+
+    <h4>Этапы выполнения:</h4>
+    <ul>
+    {% for step in steps %}
+        <li>
+            {{ step.text }}
+            {% if step.done %}(Готово){% else %}(Не готово){% endif %}
+        </li>
+    {% endfor %}
+    </ul>
+</div>
+
+<div class="back-link-container">
+    <a class="btn-link" href="{% url 'tasks_list' %}">Назад к списку</a>
+    <a class="btn-link" href="{% url 'edit_task' task_id=task.id %}" style="margin-left: 10px;">Редактировать</a>
+</div>
+
+{% endblock %}

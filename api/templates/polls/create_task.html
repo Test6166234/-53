@@ -1,0 +1,59 @@
+{% extends 'polls/base.html' %}
+
+{% block title %}
+    {% if edit_mode %}Редактировать задачу{% else %}Создать задачу{% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="task-card task-detail">
+    <h1>
+        {% if edit_mode %}Редактировать задачу{% else %}Создать новую задачу{% endif %}
+    </h1>
+
+    <form method="post" action="">
+        {% csrf_token %}
+
+        {% if initial_status %}
+            <input type="hidden" name="initial_status_input" value="{{ initial_status }}">
+        {% endif %}
+
+        <div class="form-layout">
+            <div class="form-row">
+                <label for="{{ form.title.id_for_label }}">Название:</label>
+                {{ form.title }}
+                {% if form.title.errors %}<div class="error-message">{{ form.title.errors }}</div>{% endif %}
+            </div>
+
+            <div class="form-row">
+                <label for="{{ form.description.id_for_label }}">Описание:</label>
+                {{ form.description }}
+                {% if form.description.errors %}<div class="error-message">{{ form.description.errors }}</div>{% endif %}
+            </div>
+
+            <!-- Поле Order удалено из шаблона -->
+
+            {{ form.is_done.as_hidden }}
+
+        </div>
+
+        <button type="submit" class="btn-link">
+            {% if edit_mode %}Сохранить изменения{% else %}Сохранить задачу{% endif %}
+        </button>
+
+        <a href="{% url 'tasks_list' %}" class="btn-link" style="margin-left: 10px; background: #555; color: #fff;">
+            Отмена
+        </a>
+    </form>
+</div>
+
+<style>
+    .form-row { margin-bottom: 15px; }
+    .form-row label { display: block; margin-bottom: 5px; font-weight: bold; color: #FFD700; }
+    .form-row input, .form-row textarea {
+        width: 100%; padding: 10px; border-radius: 4px; border: 1px solid #ffaa00;
+        box-sizing: border-box; background-color: #444; color: white;
+    }
+    .error-message { color: #ff4e50; font-size: 0.8em; margin-top: 5px; }
+</style>
+{% endblock %}
+
