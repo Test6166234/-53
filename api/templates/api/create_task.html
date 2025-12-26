@@ -1,0 +1,189 @@
+{% extends "api/base.html" %}
+
+{% block title %}Добавить задачу{% endblock %}
+
+{% block head %}
+<style>
+    /* ===== ТЁМНАЯ ТЕМА ===== */
+    body {
+        background: #0e0f14;
+    }
+
+    h2 {
+        text-align: center;
+        margin-bottom: 28px;
+        font-weight: 700;
+        font-size: 22px;
+        color: #ffffff;
+        letter-spacing: 0.3px;
+    }
+
+    .task-form {
+        max-width: 500px;
+        margin: 20px auto 0;
+        background: rgba(25, 27, 38, 0.95);
+        padding: 36px;
+        border-radius: 22px;
+        border: 1px solid rgba(255,255,255,0.06);
+        box-shadow:
+            0 10px 30px rgba(0, 0, 0, 0.6),
+            0 30px 80px rgba(0, 0, 0, 0.8);
+        animation: fadeUp 0.5s ease;
+        position: relative;
+        z-index: 2;
+    }
+
+    .task-form label {
+        display: block;
+        margin-top: 22px;
+        margin-bottom: 6px;
+        font-weight: 600;
+        font-size: 14px;
+        color: #dcdcdc;
+    }
+
+    .task-form input,
+    .task-form textarea {
+        width: 100%;
+        padding: 13px 15px;
+        border-radius: 12px;
+        border: 1px solid #2f3145;
+        font-size: 14px;
+        background: #141626;
+        color: #ffffff;
+        transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .task-form input::placeholder,
+    .task-form textarea::placeholder {
+        color: #8a8ca5;
+    }
+
+    .task-form input:focus,
+    .task-form textarea:focus {
+        border-color: #6c7bff;
+        box-shadow: 0 0 0 4px rgba(108, 123, 255, 0.2);
+        outline: none;
+    }
+
+    .task-form textarea {
+        resize: vertical;
+        min-height: 90px;
+    }
+
+    .task-form button {
+        margin-top: 30px;
+        width: 100%;
+        background: linear-gradient(135deg, #6c7bff, #8b95ff);
+        color: #fff;
+        border: none;
+        padding: 14px;
+        border-radius: 16px;
+        font-weight: 700;
+        font-size: 15px;
+        cursor: pointer;
+        letter-spacing: 0.3px;
+        transition: transform 0.15s, box-shadow 0.15s;
+    }
+
+    .task-form button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 14px 30px rgba(108, 123, 255, 0.45);
+    }
+
+    .back-link {
+        display: block;
+        text-align: center;
+        margin-top: 22px;
+        color: #9aa4ff;
+        text-decoration: none;
+        font-weight: 600;
+    }
+
+    .back-link:hover {
+        text-decoration: underline;
+    }
+
+    /* ===== СНЕЖИНКИ ===== */
+    .snowflake {
+        position: fixed;
+        top: -10px;
+        color: white;
+        font-size: 14px;
+        pointer-events: none;
+        opacity: 0.8;
+        z-index: 1;
+        animation: fall linear forwards;
+    }
+
+    @keyframes fall {
+        to {
+            transform: translate(120px, 110vh);
+            opacity: 0;
+        }
+    }
+
+    @keyframes fadeUp {
+        from {
+            opacity: 0;
+            transform: translateY(18px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<h2>❄️ Добавить задачу</h2>
+
+<form method="post" class="task-form">
+    {% csrf_token %}
+
+    <input type="hidden" name="status" value="{{ request.GET.status|default:'new' }}">
+
+    <label>Название задачи</label>
+    <input type="text" name="title" placeholder="Введите название" required>
+
+    <label>Описание</label>
+    <textarea name="description" rows="4" placeholder="Описание задачи"></textarea>
+
+    <button type="submit">✅ Создать</button>
+</form>
+
+<a href="{% url 'tasks_list' %}" class="back-link">← Назад к задачам</a>
+
+<!-- ===== JS: снежинки ===== -->
+<script>
+    const snowSymbols = ["❄", "❅", "❆"];
+    let mouseX = window.innerWidth / 2;
+
+    document.addEventListener("mousemove", e => {
+        mouseX = e.clientX;
+    });
+
+    function createSnowflake() {
+        const snowflake = document.createElement("div");
+        snowflake.className = "snowflake";
+        snowflake.textContent = snowSymbols[Math.floor(Math.random() * snowSymbols.length)];
+
+        const startX = mouseX + (Math.random() * 100 - 50);
+        const size = Math.random() * 8 + 10;
+        const duration = Math.random() * 5 + 6;
+
+        snowflake.style.left = startX + "px";
+        snowflake.style.fontSize = size + "px";
+        snowflake.style.animationDuration = duration + "s";
+
+        document.body.appendChild(snowflake);
+
+        setTimeout(() => {
+            snowflake.remove();
+        }, duration * 1000);
+    }
+
+    setInterval(createSnowflake, 300);
+</script>
+{% endblock %}

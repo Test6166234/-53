@@ -1,0 +1,10 @@
+{% extends "api/base.html" %}
+{% block content %}
+<h2>👥 Сотрудники</h2>
+
+<ul>
+{% for employee in employees %}
+    <li>{{ employee.first_name }} {{ employee.last_name }}</li>
+{% endfor %}
+</ul>
+{% endblock %}

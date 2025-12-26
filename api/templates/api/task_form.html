@@ -1,0 +1,141 @@
+{% extends "api/base.html" %}
+
+{% block title %}Добавить задачу{% endblock %}
+
+{% block head %}
+<style>
+    .task-form {
+        max-width: 500px;
+        margin: 10px auto 0;
+        background: #ffffff;
+        padding: 34px;
+        border-radius: 20px;
+        box-shadow:
+            0 10px 25px rgba(0, 0, 0, 0.08),
+            0 20px 50px rgba(0, 0, 0, 0.08);
+        animation: fadeUp 0.45s ease;
+    }
+
+    .task-form label {
+        display: block;
+        margin-top: 20px;
+        margin-bottom: 6px;
+        font-weight: 600;
+        font-size: 14px;
+        color: #2c2c2c;
+    }
+
+    .task-form input,
+    .task-form textarea {
+        width: 100%;
+        padding: 13px 14px;
+        border-radius: 12px;
+        border: 1px solid #d8d8d8;
+        font-size: 14px;
+        background: #f9f9f9;
+        transition:
+            border-color 0.2s ease,
+            box-shadow 0.2s ease,
+            background 0.2s ease;
+    }
+
+    .task-form input::placeholder,
+    .task-form textarea::placeholder {
+        color: #9a9a9a;
+    }
+
+    .task-form input:focus,
+    .task-form textarea:focus {
+        border-color: #4a4aff;
+        background: #ffffff;
+        box-shadow: 0 0 0 4px rgba(74, 74, 255, 0.12);
+        outline: none;
+    }
+
+    .task-form textarea {
+        resize: vertical;
+        min-height: 90px;
+    }
+
+    .task-form button {
+        margin-top: 26px;
+        width: 100%;
+        background: linear-gradient(135deg, #4a4aff, #5f5fff);
+        color: #fff;
+        border: none;
+        padding: 13px;
+        border-radius: 14px;
+        font-weight: 700;
+        font-size: 15px;
+        cursor: pointer;
+        letter-spacing: 0.3px;
+        transition:
+            transform 0.15s ease,
+            box-shadow 0.15s ease,
+            background 0.2s ease;
+    }
+
+    .task-form button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 28px rgba(74, 74, 255, 0.35);
+        background: linear-gradient(135deg, #3f3fe6, #5757ff);
+    }
+
+    .task-form button:active {
+        transform: translateY(0);
+        box-shadow: 0 6px 16px rgba(74, 74, 255, 0.3);
+    }
+
+    .back-link {
+        display: inline-block;
+        margin-top: 20px;
+        color: #4a4aff;
+        text-decoration: none;
+        font-weight: 600;
+        transition: color 0.2s ease;
+    }
+
+    .back-link:hover {
+        color: #2f2fdc;
+        text-decoration: underline;
+    }
+
+    h2 {
+        text-align: center;
+        margin-bottom: 26px;
+        font-weight: 700;
+        color: #2b2b2b;
+    }
+
+    @keyframes fadeUp {
+        from {
+            opacity: 0;
+            transform: translateY(16px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<h2>➕ Добавить задачу</h2>
+
+<form method="post" class="task-form">
+    {% csrf_token %}
+
+    <input type="hidden" name="status" value="{{ request.GET.status|default:'new' }}">
+
+    <label>Название задачи</label>
+    <input type="text" name="title" placeholder="Введите название" required>
+
+    <label>Описание</label>
+    <textarea name="description" rows="4" placeholder="Описание задачи"></textarea>
+
+    <button type="submit">✅ Создать</button>
+</form>
+
+<a href="{% url 'tasks_list' %}" class="back-link">← Назад к задачам</a>
+{% endblock %}

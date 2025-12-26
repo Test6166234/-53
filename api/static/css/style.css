@@ -1,0 +1,291 @@
+/* ===== Сброс и база ===== */
+* {
+    box-sizing: border-box;
+    transition: background-color 0.25s ease,
+                color 0.25s ease,
+                box-shadow 0.25s ease,
+                transform 0.25s ease;
+}
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: linear-gradient(135deg, #f4f6fb, #e9ecf5);
+    color: #222;
+}
+
+/* ===== Контейнер ===== */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+/* ===== Шапка ===== */
+.site-header {
+    background: #ffffff;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.site-header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 0;
+}
+
+/* ===== Логотип ===== */
+.logo {
+    margin: 0;
+    font-size: 26px;
+    font-weight: 700;
+    color: #4a4aff;
+    letter-spacing: 0.5px;
+}
+
+/* ===== Навигация ===== */
+.navigation {
+    display: flex;
+    gap: 18px;
+}
+
+.navigation a {
+    text-decoration: none;
+    font-weight: 600;
+    color: #555;
+    padding: 8px 14px;
+    border-radius: 8px;
+}
+
+.navigation a:hover {
+    background: #4a4aff;
+    color: #fff;
+}
+
+/* ===== Контент ===== */
+.page-content {
+    padding: 40px 0;
+    animation: fadeIn 0.6s ease;
+}
+
+/* ===== Заголовки ===== */
+h1, h2, h3 {
+    letter-spacing: 0.4px;
+}
+
+h2 {
+    margin-top: 0;
+    margin-bottom: 24px;
+    font-size: 28px;
+    color: #333;
+    border-left: 4px solid #4a4aff;
+    padding-left: 12px;
+}
+
+/* ===== Карточки ===== */
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 24px;
+}
+
+.card {
+    background: #ffffff;
+    padding: 24px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+.card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
+}
+
+.card h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    color: #4a4aff;
+}
+
+.card p {
+    color: #666;
+    margin-bottom: 16px;
+}
+
+.card a {
+    text-decoration: none;
+    font-weight: 600;
+    color: #4a4aff;
+}
+
+/* ===== Списки ===== */
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    background: #ffffff;
+    padding: 14px 18px;
+    margin-bottom: 12px;
+    border-radius: 12px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+}
+
+li:hover {
+    background: #f0f2ff;
+}
+
+/* ===== Ссылки ===== */
+a {
+    color: #4a4aff;
+}
+
+a:hover {
+    color: #2f2fdc;
+}
+
+/* ===== Подвал ===== */
+.site-footer {
+    text-align: center;
+    padding: 20px 0;
+    margin-top: 60px;
+    color: #777;
+    font-size: 14px;
+    border-top: 1px solid #ddd;
+}
+
+/* ===== Анимация ===== */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+/* ===== КАНБАН-ДОСКА ===== */
+
+.kanban {
+    display: flex;
+    gap: 32px;
+    align-items: flex-start;
+}
+
+/* Колонка */
+.kanban-column {
+    flex: 1;
+    background: #ffffff;
+    border-radius: 18px;
+    padding: 22px;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+}
+
+/* Заголовок колонки */
+.kanban-column h3 {
+    margin-top: 0;
+    margin-bottom: 22px;
+    font-size: 18px;
+    font-weight: 700;
+    color: #4a4aff;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Карточка задачи */
+.task-card {
+    background: #f9faff;
+    border-radius: 14px;
+    padding: 16px;
+    margin-bottom: 16px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+}
+
+/* Заголовок задачи */
+.task-card strong {
+    display: block;
+    margin-bottom: 6px;
+    color: #333;
+}
+
+/* Описание */
+.task-card p {
+    margin: 0;
+    color: #666;
+    font-size: 14px;
+}
+
+/* Кнопка "Добавить" */
+.add-btn {
+    margin-top: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(135deg, #4a4aff, #6a6aff);
+    color: #fff;
+    padding: 12px;
+    border-radius: 12px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.add-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 22px rgba(74, 74, 255, 0.35);
+}
+/* ===== ФОРМА СОЗДАНИЯ ЗАДАЧИ ===== */
+
+.task-form {
+    max-width: 520px;
+    background: #ffffff;
+    padding: 28px;
+    border-radius: 18px;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+}
+
+.task-form label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+    color: #333;
+}
+
+.task-form input,
+.task-form textarea {
+    width: 100%;
+    padding: 10px 14px;
+    margin-bottom: 18px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+}
+
+.task-form input:focus,
+.task-form textarea:focus {
+    outline: none;
+    border-color: #4a4aff;
+    box-shadow: 0 0 0 3px rgba(74, 74, 255, 0.15);
+}
+
+.task-form button {
+    background: linear-gradient(135deg, #4a4aff, #6a6aff);
+    color: #fff;
+    border: none;
+    padding: 12px 18px;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.task-form button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 22px rgba(74, 74, 255, 0.35);
+}

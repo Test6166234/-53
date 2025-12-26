@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    {# 🔽 ВАЖНО: сюда будут попадать стили страниц #}
+    {% block head %}{% endblock %}
+</head>
+<body>
+
+<header class="site-header">
+    <div class="container">
+        <h1 class="logo">🎮 Game Project Manager</h1>
+        <nav class="navigation">
+            <a href="{% url 'home' %}">Главная</a>
+<!--            <a href="{% url 'movies_list' %}">Фильмы</a>-->
+<!--            <a href="{% url 'tasks_list' %}">Задачи</a>-->
+            <a href="{% url 'gameitems_list' %}">Предметы</a>
+            <a href="{% url 'employees_list' %}">Сотрудники</a>
+            <a href="/api/">API</a>
+        </nav>
+    </div>
+</header>
+
+<main class="container page-content">
+    {% block content %}{% endblock %}
+</main>
+
+<footer class="site-footer">
+    © 2025 Game Project
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,10 @@
+{% extends "api/base.html" %}
+{% block content %}
+<h2>🗡 Игровые предметы</h2>
+
+<ul>
+{% for item in items %}
+    <li>{{ item.name }} ({{ item.rarity }})</li>
+{% endfor %}
+</ul>
+{% endblock %}

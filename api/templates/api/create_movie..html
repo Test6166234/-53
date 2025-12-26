@@ -1,0 +1,27 @@
+{% extends "api/base.html" %}
+
+{% block title %}Добавить фильм{% endblock %}
+
+{% block content %}
+<h2>➕ Добавить фильм</h2>
+
+{% if error %}
+    <p style="color: red;">{{ error }}</p>
+{% endif %}
+
+<form method="post" class="movie-form">
+    {% csrf_token %}
+
+    <label>Название фильма</label>
+    <input type="text" name="title" placeholder="Введите название фильма" required>
+
+    <label>Описание фильма</label>
+    <textarea name="description" rows="4" placeholder="Описание фильма" required></textarea>
+
+    <button type="submit">✅ Создать</button>
+</form>
+
+<br>
+
+<a href="{% url 'movies_list' %}">← Назад к фильмам</a>
+{% endblock %}

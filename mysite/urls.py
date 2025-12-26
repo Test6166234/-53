@@ -7,16 +7,15 @@ from drf_yasg import openapi
 schema_view = get_schema_view(
     openapi.Info(
         title="Game API",
-        default_version='v1',
-        description="Swagger документация Game API",
-        contact=openapi.Contact(email="contact@example.com"),
+        default_version="v1",
+        description="Game + Movies backend",
     ),
     public=True,
-    permission_classes=(permissions.AllowAny,),
+    permission_classes=[permissions.AllowAny],
 )
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('api/', include('api.urls')),
-    path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+    path("admin/", admin.site.urls),
+    path("", include("api.urls")),        # сайт
+    path("swagger/", schema_view.with_ui("swagger", cache_timeout=0)),
 ]
