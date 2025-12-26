@@ -42,9 +42,9 @@ class GameItem(models.Model):
 
 # ===== Сотрудники =====
 class Employee(models.Model):
-    first_name = models.CharField(max_length=5000000000000000000000)
-    last_name = models.CharField(max_length=50000000000000000000000)
-    position = models.CharField(max_length=500000000000000000000000)
+    first_name = models.CharField(max_length=500)
+    last_name = models.CharField(max_length=500)
+    position = models.CharField(max_length=500)
     salary = models.IntegerField()
     experience_years = models.IntegerField()
     is_active = models.BooleanField(default=True)
